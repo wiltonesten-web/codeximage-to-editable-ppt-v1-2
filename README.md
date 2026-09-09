@@ -10,6 +10,55 @@
 > **效率提升：** 通过独立页面 Worker 同时重建多张幻灯片，在不降低 V1 单页质量标准的前提下，
 > 减少多页任务的总等待时间。实际效率提升以运行中测得的 Worker 时间重叠和耗时结果为准。
 
+## 教学视频
+
+这是本 Skill V1.2 的教学与案例演示视频：
+[在抖音查看“图片批量转可编辑 PPT，技能版本 1.2”](https://v.douyin.com/UP7vkH4OqOQ/)。
+
+## 案例展示
+
+以下案例左侧为原始图片，右侧为处理后的可编辑 PowerPoint 结果。结果截图中的选择框表明，
+页面内容已拆分为可以独立选择和编辑的对象。
+
+### 案例 1：标题页
+
+<table>
+  <tr>
+    <th width="50%">原始图片</th>
+    <th width="50%">可编辑化结果</th>
+  </tr>
+  <tr>
+    <td align="center"><img src="assets/examples/case-01/original.png" width="600" height="338" alt="案例 1 原始图片"></td>
+    <td align="center"><img src="assets/examples/case-01/editable-result.png" width="600" height="338" alt="案例 1 可编辑化结果"></td>
+  </tr>
+</table>
+
+### 案例 2：信息图与科学图表页
+
+<table>
+  <tr>
+    <th width="50%">原始图片</th>
+    <th width="50%">可编辑化结果</th>
+  </tr>
+  <tr>
+    <td align="center"><img src="assets/examples/case-02/original.png" width="600" height="338" alt="案例 2 原始图片"></td>
+    <td align="center"><img src="assets/examples/case-02/editable-result.png" width="600" height="338" alt="案例 2 可编辑化结果"></td>
+  </tr>
+</table>
+
+### 案例 3：结构化信息卡页
+
+<table>
+  <tr>
+    <th width="50%">原始图片</th>
+    <th width="50%">可编辑化结果</th>
+  </tr>
+  <tr>
+    <td align="center"><img src="assets/examples/case-03/original.png" width="600" height="338" alt="案例 3 原始图片"></td>
+    <td align="center"><img src="assets/examples/case-03/editable-result.png" width="600" height="338" alt="案例 3 可编辑化结果"></td>
+  </tr>
+</table>
+
 当前打包的 Skill 版本为 **1.2.7**。该版本新增硬件感知预检、多根任务编排、
 可复用品牌页眉、更严格的科学图表与分图标记检查、结构化信息卡拆分规则、
 有序 OpenXML 合并以及合并后的内容不变量检查。
@@ -116,6 +165,8 @@ output/
 ## 仓库结构
 
 ```text
+assets/
+`-- examples/
 skills/
 `-- codeximage-to-editable-ppt-v1-2/
     |-- SKILL.md

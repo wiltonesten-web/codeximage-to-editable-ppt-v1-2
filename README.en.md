@@ -14,6 +14,56 @@ parallel when the corresponding task-tree and hardware capacity is available.
 > without lowering the V1 single-page quality standard. Actual speedup is
 > reported from measured worker overlap and runtime results.
 
+## Tutorial Video
+
+This Chinese-language video demonstrates the V1.2 skill and its examples:
+[watch “Batch Convert Images to Editable PPT — Skill Version 1.2” on Douyin](https://v.douyin.com/UP7vkH4OqOQ/).
+
+## Examples
+
+Each example shows the original image on the left and the editable PowerPoint
+result on the right. The selection handles in the result screenshots show that
+the page has been decomposed into independently selectable and editable objects.
+
+### Case 1: Title Slide
+
+<table>
+  <tr>
+    <th width="50%">Original image</th>
+    <th width="50%">Editable result</th>
+  </tr>
+  <tr>
+    <td align="center"><img src="assets/examples/case-01/original.png" width="600" height="338" alt="Case 1 original image"></td>
+    <td align="center"><img src="assets/examples/case-01/editable-result.png" width="600" height="338" alt="Case 1 editable result"></td>
+  </tr>
+</table>
+
+### Case 2: Infographic and Scientific Figure Slide
+
+<table>
+  <tr>
+    <th width="50%">Original image</th>
+    <th width="50%">Editable result</th>
+  </tr>
+  <tr>
+    <td align="center"><img src="assets/examples/case-02/original.png" width="600" height="338" alt="Case 2 original image"></td>
+    <td align="center"><img src="assets/examples/case-02/editable-result.png" width="600" height="338" alt="Case 2 editable result"></td>
+  </tr>
+</table>
+
+### Case 3: Structured Information Card Slide
+
+<table>
+  <tr>
+    <th width="50%">Original image</th>
+    <th width="50%">Editable result</th>
+  </tr>
+  <tr>
+    <td align="center"><img src="assets/examples/case-03/original.png" width="600" height="338" alt="Case 3 original image"></td>
+    <td align="center"><img src="assets/examples/case-03/editable-result.png" width="600" height="338" alt="Case 3 editable result"></td>
+  </tr>
+</table>
+
 The packaged skill version is **1.2.7**. It adds hardware-aware preflight,
 multi-root page orchestration, reusable branded mastheads, stricter scientific
 chart and panel-marker checks, structured-card decomposition rules, ordered
@@ -138,6 +188,8 @@ review instead of presenting the run as a completed delivery.
 ## Repository Layout
 
 ```text
+assets/
+`-- examples/
 skills/
 `-- codeximage-to-editable-ppt-v1-2/
     |-- SKILL.md
