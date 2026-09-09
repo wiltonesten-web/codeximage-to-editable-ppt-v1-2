@@ -1,11 +1,18 @@
 # codeximage-to-editable-ppt-v1-2
 
-**English** | [简体中文](README.zh-CN.md)
+[简体中文](README.zh-CN.md) | **English**
 
 An upgraded orchestration layer for
 [`codeximage-to-editable-ppt-v1`](https://github.com/wiltonesten-web/codeximage-to-editable-ppt-v1),
-designed to reconstruct two to six image-based PowerPoint pages with measured
-parallel execution while preserving the full single-page V1 quality contract.
+designed for multi-page image-based PowerPoint files. It preserves the complete
+single-page V1 quality contract while using measured parallel execution for
+editable reconstruction. It can process 3, 6, 9, or other numbers of images in
+parallel when the corresponding task-tree and hardware capacity is available.
+
+> **Efficiency improvement:** Independent page workers reconstruct multiple
+> slides at the same time, reducing the total waiting time for multi-page jobs
+> without lowering the V1 single-page quality standard. Actual speedup is
+> reported from measured worker overlap and runtime results.
 
 The packaged skill version is **1.2.7**. It adds hardware-aware preflight,
 multi-root page orchestration, reusable branded mastheads, stricter scientific
@@ -14,12 +21,12 @@ OpenXML merge, and post-merge content invariants.
 
 ## Highlights
 
-- Preflight two to six slide images or image-based PPT/PPTX pages before writing
+- Preflight multi-page slide images or image-based PPT/PPTX pages before writing
   to the formal output directory.
 - Estimate a conservative worker count from CPU, available memory, active
   PowerPoint processes, and available Codex worker slots.
-- Run up to three page workers in one Codex task tree, or four to six workers
-  across two explicitly authorized task trees.
+- Run up to three page workers in each Codex task tree, scaling to 3, 6, 9, or
+  other page counts through explicitly authorized task trees when capacity permits.
 - Detect a repeated branded masthead and reuse one immutable, hash-verified crop
   at a consistent normalized placement.
 - Reject full-slide screenshot reuse, raster text residue under editable text,
@@ -94,9 +101,9 @@ starting page workers.
 ```
 
 The skill first produces a read-only preflight report and asks the user to
-confirm the page strategy and exact worker count. Four-to-six-worker execution
-also requires explicit authorization to create one auxiliary Codex task. It does
-not silently fall back to sequential waves while claiming full concurrency.
+confirm the page strategy and exact worker count. Execution that requires
+additional task trees also requires explicit user authorization. It does not
+silently fall back to sequential waves while claiming full concurrency.
 
 ## Command-Line Preflight
 
@@ -162,10 +169,11 @@ python -m unittest discover `
 
 ## Limitations
 
-- The skill coordinates two to six pages; use the base V1 skill directly for a
+- The skill coordinates multi-page inputs; use the base V1 skill directly for a
   single page.
-- Four to six simultaneous page workers depend on two available Codex task trees
-  and explicit user authorization for the auxiliary task.
+- Higher parallel counts such as 6 or 9 depend on enough available Codex task
+  trees, sufficient hardware capacity, and explicit user authorization for
+  auxiliary tasks.
 - A selected worker count above the hardware-safe recommendation requires an
   explicit capacity override.
 - Raster sources cannot recover hidden text, original vectors, chart data,
