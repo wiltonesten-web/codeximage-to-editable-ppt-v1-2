@@ -1,62 +1,46 @@
 # codeximage-to-editable-ppt-v1-2
 
-[简体中文](README.zh-CN.md) | **English**
+**简体中文** | [English](README.en.md)
 
-An upgraded orchestration layer for
-[`codeximage-to-editable-ppt-v1`](https://github.com/wiltonesten-web/codeximage-to-editable-ppt-v1),
-designed for multi-page image-based PowerPoint files. It preserves the complete
-single-page V1 quality contract while using measured parallel execution for
-editable reconstruction. It can process 3, 6, 9, or other numbers of images in
-parallel when the corresponding task-tree and hardware capacity is available.
+这是 [`codeximage-to-editable-ppt-v1`](https://github.com/wiltonesten-web/codeximage-to-editable-ppt-v1)
+的升级编排层。它面向多页图片型 PowerPoint，在完整保留 V1 单页质量标准的同时，
+通过经过测量的并行执行完成可编辑化重建。可以并行处理 3、6、9 等数量的图片；
+实际并行规模取决于可用的任务树和硬件容量。
 
-> **Efficiency improvement:** Independent page workers reconstruct multiple
-> slides at the same time, reducing the total waiting time for multi-page jobs
-> without lowering the V1 single-page quality standard. Actual speedup is
-> reported from measured worker overlap and runtime results.
+> **效率提升：** 通过独立页面 Worker 同时重建多张幻灯片，在不降低 V1 单页质量标准的前提下，
+> 减少多页任务的总等待时间。实际效率提升以运行中测得的 Worker 时间重叠和耗时结果为准。
 
-The packaged skill version is **1.2.7**. It adds hardware-aware preflight,
-multi-root page orchestration, reusable branded mastheads, stricter scientific
-chart and panel-marker checks, structured-card decomposition rules, ordered
-OpenXML merge, and post-merge content invariants.
+当前打包的 Skill 版本为 **1.2.7**。该版本新增硬件感知预检、多根任务编排、
+可复用品牌页眉、更严格的科学图表与分图标记检查、结构化信息卡拆分规则、
+有序 OpenXML 合并以及合并后的内容不变量检查。
 
-## Highlights
+## 主要特性
 
-- Preflight multi-page slide images or image-based PPT/PPTX pages before writing
-  to the formal output directory.
-- Estimate a conservative worker count from CPU, available memory, active
-  PowerPoint processes, and available Codex worker slots.
-- Run up to three page workers in each Codex task tree, scaling to 3, 6, 9, or
-  other page counts through explicitly authorized task trees when capacity permits.
-- Detect a repeated branded masthead and reuse one immutable, hash-verified crop
-  at a consistent normalized placement.
-- Reject full-slide screenshot reuse, raster text residue under editable text,
-  under-split information cards, and masthead/title collisions.
-- Preserve each logical scientific chart as one pixel-exact source crop with its
-  title, axes, ticks, values, units, legends, annotations, colorbar, and safety
-  margins.
-- Preserve external scientific panel markers such as `(a)`, `(b)`, and `(c)`
-  with exact tag-to-text validation.
-- Merge passed one-page decks in source order while preserving audit tags, then
-  verify fast post-merge content invariants.
-- Report observed worker overlap and refuse to claim a parallelism level that
-  was not actually measured.
+- 在向正式输出目录写入文件之前，对多页幻灯片图片或图片型 PPT/PPTX 页面进行预检。
+- 根据 CPU、可用内存、正在运行的 PowerPoint 进程和可用 Codex Worker 槽位，保守估算并发数量。
+- 每个 Codex 任务树运行最多 3 个页面 Worker；在容量允许且用户明确授权创建相应任务树时，
+  可以扩展到 3、6、9 等页数。
+- 检测重复出现的品牌页眉，并在统一的归一化位置复用一份经过哈希验证、不可变的裁剪图。
+- 拒绝复用整页截图、可编辑文字下方残留栅格文字、信息卡拆分不足以及页眉与标题发生碰撞等问题。
+- 将每个逻辑科学图表保留为一张与原图像素完全一致的裁剪图，并包含标题、坐标轴、刻度、数值、单位、图例、注释、色标和安全边距。
+- 保留 `(a)`、`(b)`、`(c)` 等外置科学分图标记，并对标记与文字进行精确校验。
+- 按源页面顺序合并已通过检查的单页演示文稿，保留审计标签，并快速验证合并后的内容不变量。
+- 报告实际观测到的 Worker 时间重叠，不会宣称未经测量的并行度。
 
-## Relationship to V1
+## 与 V1 的关系
 
-This repository is an upgrade layer, not a replacement copy of V1. The installed
-v1.2 skill reads the canonical V1 single-page reconstruction contract from the
-sibling folder:
+本仓库是 V1 的升级层，而不是 V1 的替代副本。安装后的 V1.2 Skill 会从以下同级目录读取
+V1 的标准单页重建规范：
 
 ```text
 %USERPROFILE%\.codex\skills\codeximage-to-editable-ppt-v1
 ```
 
-Install V1 first, then install this repository's v1.2 skill. Both folders must
-remain installed side by side.
+请先安装 V1，再安装本仓库中的 V1.2 Skill。两个 Skill 文件夹必须并列保留。
 
-## Install as a Codex Skill
+## 安装为 Codex Skill
 
-Install the required V1 base skill:
+安装所需的 V1 基础 Skill：
 
 ```powershell
 python "$env:USERPROFILE\.codex\skills\.system\skill-installer\scripts\install-skill-from-github.py" `
@@ -64,7 +48,7 @@ python "$env:USERPROFILE\.codex\skills\.system\skill-installer\scripts\install-s
   --path skills/codeximage-to-editable-ppt-v1
 ```
 
-Install v1.2:
+安装 V1.2：
 
 ```powershell
 python "$env:USERPROFILE\.codex\skills\.system\skill-installer\scripts\install-skill-from-github.py" `
@@ -72,42 +56,38 @@ python "$env:USERPROFILE\.codex\skills\.system\skill-installer\scripts\install-s
   --path skills/codeximage-to-editable-ppt-v1-2
 ```
 
-Restart Codex after installation so the new skill is discovered.
+安装完成后请重启 Codex，使其发现新 Skill。
 
-For manual installation, copy only
-`skills/codeximage-to-editable-ppt-v1-2` into `%USERPROFILE%\.codex\skills\`.
-Do not copy the repository root as the skill folder.
+如需手动安装，只需将 `skills/codeximage-to-editable-ppt-v1-2` 复制到
+`%USERPROFILE%\.codex\skills\`。不要将整个仓库根目录作为 Skill 文件夹复制。
 
-## Python Dependencies
+## Python 依赖
 
-Install the Python packages from the repository root:
+在仓库根目录执行以下命令安装 Python 软件包：
 
 ```powershell
 python -m pip install -r skills/codeximage-to-editable-ppt-v1-2/requirements.txt
 ```
 
-Microsoft PowerPoint is required for the strict final rendering and layout QA
-workflow on Windows. Tesseract OCR, LibreOffice, and Poppler may be needed for
-particular input or fallback paths.
+严格的最终渲染与版式质量检查需要在 Windows 上使用 Microsoft PowerPoint。
+部分输入处理或回退路径还可能需要 Tesseract OCR、LibreOffice 和 Poppler。
 
-## Typical Workflow
+## 典型工作流
 
-Use the skill in Codex with a request such as:
+可以在 Codex 中使用类似下面的请求调用此 Skill：
 
 ```text
-Use $codeximage-to-editable-ppt-v1-2 to preflight these slide images and rebuild
-them as an editable deck. Show me the page strategy and safe worker choices before
-starting page workers.
+使用 $codeximage-to-editable-ppt-v1-2 预检这些幻灯片图片，并将它们重建为可编辑演示文稿。
+在启动页面 Worker 之前，先向我展示页面策略和安全的 Worker 数量选择。
 ```
 
-The skill first produces a read-only preflight report and asks the user to
-confirm the page strategy and exact worker count. Execution that requires
-additional task trees also requires explicit user authorization. It does not
-silently fall back to sequential waves while claiming full concurrency.
+Skill 会先生成只读预检报告，并请用户确认页面策略和准确的 Worker 数量。
+如果执行需要额外的任务树，还必须获得用户明确授权。
+它不会在实际采用顺序分批处理时仍宣称实现了完整并发。
 
-## Command-Line Preflight
+## 命令行预检
 
-Example for six raster slide pages:
+以下示例用于预检 6 张栅格幻灯片页面：
 
 ```powershell
 python skills/codeximage-to-editable-ppt-v1-2/scripts/parallel_v1_pages.py preflight `
@@ -119,11 +99,10 @@ python skills/codeximage-to-editable-ppt-v1-2/scripts/parallel_v1_pages.py prefl
   --powerpoint-worker-cap 6
 ```
 
-Preflight does not perform the full editable reconstruction. Continue through
-Codex so that page workers can execute the V1 reconstruction and PowerPoint QA
-contract.
+预检不会直接完成全部可编辑化重建。请继续通过 Codex 操作，使页面 Worker 能够执行
+V1 重建流程及 PowerPoint 质量检查规范。
 
-## Default Successful Output
+## 默认成功输出
 
 ```text
 output/
@@ -132,10 +111,9 @@ output/
 `-- parallel_v1_finalization.json
 ```
 
-When validation fails, diagnostic task and shard artifacts are preserved for
-review instead of presenting the run as a completed delivery.
+如果验证失败，系统会保留诊断任务和分片产物供检查，而不会把该次运行视为已完成交付。
 
-## Repository Layout
+## 仓库结构
 
 ```text
 skills/
@@ -149,17 +127,16 @@ skills/
     `-- requirements.txt
 ```
 
-## Validation
+## 验证
 
-Validate the skill metadata:
+验证 Skill 元数据：
 
 ```powershell
 python "$env:USERPROFILE\.codex\skills\.system\skill-creator\scripts\quick_validate.py" `
   skills/codeximage-to-editable-ppt-v1-2
 ```
 
-Run the included tests in an environment where the V1 and v1.2 skill folders are
-installed side by side:
+在 V1 与 V1.2 Skill 文件夹并列安装的环境中运行随附测试：
 
 ```powershell
 python -m unittest discover `
@@ -167,25 +144,18 @@ python -m unittest discover `
   -p "test_*.py" -v
 ```
 
-## Limitations
+## 限制
 
-- The skill coordinates multi-page inputs; use the base V1 skill directly for a
-  single page.
-- Higher parallel counts such as 6 or 9 depend on enough available Codex task
-  trees, sufficient hardware capacity, and explicit user authorization for
-  auxiliary tasks.
-- A selected worker count above the hardware-safe recommendation requires an
-  explicit capacity override.
-- Raster sources cannot recover hidden text, original vectors, chart data,
-  animations, or font files that are absent from the input.
-- Strict delivery depends on a faithful Microsoft PowerPoint render and terminal
-  validation; a script-only baseline is not a finished editable deck.
+- 本 Skill 用于编排多页输入；单页任务请直接使用基础 V1 Skill。
+- 6、9 等更高并行数量取决于是否有足够的 Codex 任务树和硬件容量，并且必须由用户明确授权创建辅助任务。
+- 如果所选 Worker 数量高于硬件安全建议值，必须明确覆盖容量限制。
+- 栅格图片无法恢复输入中不存在的隐藏文字、原始矢量图、图表数据、动画或字体文件。
+- 严格交付依赖 Microsoft PowerPoint 的高保真渲染和终端验证；仅由脚本生成的基础结果不等同于已完成的可编辑演示文稿。
 
-## Project Status
+## 项目状态
 
-This repository packages v1.2.7 as an independent community project. It is not
-affiliated with or endorsed by OpenAI or Microsoft.
+本仓库以独立社区项目的形式发布 V1.2.7，与 OpenAI 或 Microsoft 不存在隶属或官方认可关系。
 
-## License
+## 许可证
 
-MIT License. See [LICENSE](LICENSE).
+采用 MIT License，详情参见 [LICENSE](LICENSE)。
