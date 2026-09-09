@@ -1,0 +1,7 @@
+opencv-python
+numpy
+pillow
+python-pptx
+pytesseract
+PyYAML
+pywin32; sys_platform == "win32"

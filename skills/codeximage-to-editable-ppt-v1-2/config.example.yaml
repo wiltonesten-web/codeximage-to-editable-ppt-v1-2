@@ -1,0 +1,18 @@
+parallel_v1:
+  entrypoint: scripts/parallel_v1_pages.py
+  page_workers: auto_from_available_agent_slots
+  page_worker_skill: ../codeximage-to-editable-ppt-v1/SKILL.md
+  preserve_full_v1_workflow: true
+  require_collaboration_subagents_for_multiple_pages: true
+  require_baseline_decomposition: true
+  require_page_powerpoint_preview: true
+  require_page_source_comparison: true
+  require_page_visual_correction: true
+  require_page_terminal_powerpoint_validation: true
+  require_zero_page_text_overflow: true
+  require_zero_page_off_slide_shapes: true
+  merge_in_source_order: true
+  post_merge_content_validation: false
+  post_merge_mechanical_integrity_only: true
+  minimum_speedup_for_three_pages_two_workers: 1.4
+  minimum_speedup_for_three_pages_three_workers: 1.8

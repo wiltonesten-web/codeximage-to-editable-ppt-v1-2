@@ -1,0 +1,7 @@
+interface:
+  display_name: "CodexImage to Editable PPT v1.2"
+  short_description: "Six-page rebuild with source-verified chart QA"
+  default_prompt: "Use $codeximage-to-editable-ppt-v1-2 to preflight my slide images, reuse confirmed mastheads, ask me to confirm worker count, and use authorized multi-root parallelism for four to six simultaneous full-V1 page workers. Keep every logical data chart as one exact source-grounded crop with title, axes, ticks, values, units, legends, annotations, colorbar, and safety margins; reject padding or cropped labels; preserve exact external (a)/(b)/(c) markers; keep titles clear of shared mastheads; and run fast invariant QA after merge."
+
+policy:
+  allow_implicit_invocation: true
