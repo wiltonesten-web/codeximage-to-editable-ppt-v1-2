@@ -1,5 +1,7 @@
 # codeximage-to-editable-ppt-v1-2
 
+**English** | [简体中文](README.zh-CN.md)
+
 An upgraded orchestration layer for
 [`codeximage-to-editable-ppt-v1`](https://github.com/wiltonesten-web/codeximage-to-editable-ppt-v1),
 designed to reconstruct two to six image-based PowerPoint pages with measured
